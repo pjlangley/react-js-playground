@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 var url = require('url');
-require('dotenv').config();
 
 var ajaxRequests = [];
 global.window.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
@@ -13,7 +12,6 @@ import fetch from '../../src/modules/fetch-location';
 
 describe('fetch-location module', function() {
     var locationId = 353500;
-    var API_KEY = process.env.API_KEY;
     var result = fetch(locationId);
     var request = url.parse(ajaxRequests[0].url, true);
 
