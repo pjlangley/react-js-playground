@@ -3,8 +3,8 @@ import LocationInfo from './location-info';
 import Warning from './warning';
 import { fetchLocationAsync } from '../modules/thunks';
 
-var Location = React.createClass({
-    render: function() {
+class Location extends React.Component {
+    render() {
         var state = this.context.store.getState();
 
         return (
@@ -21,30 +21,30 @@ var Location = React.createClass({
                             {state.locationInfo ? <LocationInfo/> : ''}
                         </div>
                         <div className="card-action">
-                            <a href="#" onClick={this.onRefresh}>Refresh</a>
+                            <a href="#" onClick={this.onRefresh.bind(this)}>Refresh</a>
                             <img className={state.isLoading ? 'loader' : 'loader hide'} src="images/spinner.gif" alt="Loading location"/>
                         </div>
                     </div>
                 </div>
             </div>
         );
-    },
+    }
 
-    componentDidMount: function() {
+    componentDidMount() {
         this.getLocation();
-    },
+    }
 
-    onRefresh: function(e) {
+    onRefresh(e) {
         e.preventDefault();
         this.getLocation();
-    },
+    }
 
-    getLocation: function() {
+    getLocation() {
         this.context.store.dispatch(
             fetchLocationAsync(this.props.locationId)
         );
     }
-});
+}
 
 Location.contextTypes = {
     store: React.PropTypes.object
