@@ -1,16 +1,22 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import Location from '../../src/components/location';
 import locationReducer from '../../src/reducers/location';
 import { receiveLocation } from '../../src/modules/actions';
+import { fetchLocationAsync } from '../modules/thunks';
 
 import { mount } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
 describe('<Location/>', function() {
-    var store = createStore(locationReducer);
+    var store = createStore(
+        locationReducer,
+        applyMiddleware(thunk)
+    );
+
     var spy = sinon.spy(Location.prototype, 'componentDidMount');
 
     var wrapper = mount(

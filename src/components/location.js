@@ -2,7 +2,7 @@ import React from 'react';
 import fetch from '../modules/fetch-location';
 import LocationInfo from './location-info';
 import Warning from './warning';
-import { fetchLocation, receiveLocation } from '../modules/actions';
+import { fetchLocationAsync } from '../modules/thunks';
 
 var Location = React.createClass({
     render: function() {
@@ -37,38 +37,13 @@ var Location = React.createClass({
 
     onRefresh: function(e) {
         e.preventDefault();
-
-        if (this.context.store.getState().isLoading) return;
-
         this.getLocation();
     },
 
     getLocation: function() {
-        this.context.store.dispatch(fetchLocation());
-
-        var result = fetch(this.props.locationId);
-
-        result.then(function onResolve(data, textStatus, jqXHR) {
-            var location = data.SiteRep.DV.Location;
-            var stats = location.Period[0].Rep[0];
-
-            var payload = {
-                id: location.i,
-                name: location.name,
-                lat: location.lat,
-                lon: location.lon,
-                country: location.country,
-                continent: location.continent,
-                temperature: stats.T + '&deg;C',
-                windSpeed: stats.S + 'mph',
-                windDirection: stats.D
-            };
-
-            this.context.store.dispatch(receiveLocation(payload));
-
-        }.bind(this), function onFail(jqXHR, textStatus, errorThrown) {
-            this.context.store.dispatch(receiveLocation(new Error()));
-        }.bind(this));
+        this.context.store.dispatch(
+            fetchLocationAsync(this.props.locationId)
+        );
     }
 });
 
