@@ -17,6 +17,8 @@ describe('<Location/>', function() {
     );
 
     var spy = sinon.spy(Location.prototype, 'componentDidMount');
+    var getLocationStub = sinon.stub(Location.prototype, 'getLocation');
+    var onRefreshSpy = sinon.spy(Location.prototype, 'onRefresh');
 
     var wrapper = mount(
         <Provider store={store}>
@@ -154,9 +156,21 @@ describe('<Location/>', function() {
         });
     });
 
+    describe('when `refresh` is clicked...', function() {
+        it('calls `onRefresh` method', function() {
+            expect(onRefreshSpy.called).to.equal(false);
+            wrapper.find('div.card-action a').simulate('click');
+            expect(onRefreshSpy.calledOnce).to.equal(true);
+        });
+    });
+
     describe('component life cycle integrity', function() {
-        it('calls `componentDidMount once only`', function() {
+        it('calls `componentDidMount` once only', function() {
             expect(spy.calledOnce).to.equal(true);
+        });
+
+        it('calls `getLocation` twice only', function() {
+            expect(getLocationStub.calledTwice).to.equal(true);
         });
     });
 });
