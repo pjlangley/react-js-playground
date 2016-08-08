@@ -5,7 +5,6 @@ import { createStore, applyMiddleware } from 'redux';
 import Location from '../../src/components/location';
 import locationReducer from '../../src/reducers/location';
 import { receiveLocation } from '../../src/modules/actions';
-import { fetchLocationAsync } from '../modules/thunks';
 
 import { mount } from 'enzyme';
 import { expect } from 'chai';

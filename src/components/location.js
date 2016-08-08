@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from '../modules/fetch-location';
 import LocationInfo from './location-info';
 import Warning from './warning';
 import { fetchLocationAsync } from '../modules/thunks';
