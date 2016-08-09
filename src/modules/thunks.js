@@ -25,11 +25,13 @@ export function fetchLocationAsync(locationId) {
                 windDirection: stats.D
             };
 
-            return dispatch(receiveLocation(payload));
+            dispatch(receiveLocation(payload));
 
         }, function onFail(jqXHR, textStatus, errorThrown) {
             return dispatch(receiveLocation(new Error()));
         });
+
+        return result;
     }
 }
 
