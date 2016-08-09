@@ -1,8 +1,8 @@
 import { fetchLocationAsync } from '../../src/modules/thunks';
 import { fetchLocation, receiveLocation } from '../../src/modules/actions';
+import thunk from 'redux-thunk';
 
 import sinon from 'sinon';
-import thunk from 'redux-thunk';
 import { expect } from 'chai';
 import configureMockStore from 'redux-mock-store';
 
@@ -12,15 +12,20 @@ var store = mockStore({});
 describe('`fetchLocationAsync` thunk tests', function() {
     var server;
 
-    beforeEach(function setupFakeServer() {
+    before(function setupFakeXHR() {
+        global.window.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
         server = sinon.fakeServer.create({
             respondImmediately: true
         });
     });
 
-    afterEach(function restoreFakeServer() {
-        server.restore();
+    afterEach(function restoreStoreActions() {
         store.clearActions();
+    });
+
+    after(function restoreXHR() {
+        global.window.XMLHttpRequest.restore();
+        server.restore();
     });
 
     it('when called with a 200 response, returns the expected store actions', function(done) {
@@ -31,8 +36,8 @@ describe('`fetchLocationAsync` thunk tests', function() {
             lon: '50.9231',
             country: 'ENGLAND',
             continent: 'EUROPE',
-            temperature: 15,
-            windSpeed: 7,
+            temperature: 15 + '&deg;C',
+            windSpeed: 7 + 'mph',
             windDirection: 'WSW'
         };
 
@@ -51,8 +56,8 @@ describe('`fetchLocationAsync` thunk tests', function() {
                         continent: payload.continent,
                         Period: [{
                             Rep: [{
-                                T: payload.temperature,
-                                S: payload.windSpeed,
+                                T: 15,
+                                S: 7,
                                 D: payload.windDirection
                             }]
                         }]
@@ -61,7 +66,7 @@ describe('`fetchLocationAsync` thunk tests', function() {
             })
         ]);
 
-        store.dispatch(fetchLocationAsync());
+        store.dispatch(fetchLocationAsync(payload.id));
 
         setTimeout(function() {
             var actions = store.getActions();
