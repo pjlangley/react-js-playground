@@ -28,7 +28,7 @@ describe('`fetchLocationAsync` thunk tests', function() {
         server.restore();
     });
 
-    it('when called with a 200 response, returns the expected store actions', function(done) {
+    it('when called with a 200 response, returns the expected store actions', function() {
         var payload = {
             id: 353500,
             name: 'SHIRLEY (SOUTHAMPTON)',
@@ -43,7 +43,7 @@ describe('`fetchLocationAsync` thunk tests', function() {
 
         var receiveLocationAction = receiveLocation(payload);
 
-        server.respondWith('GET', /.+datapoint.+/, [
+        server.respondWith('GET', /datapoint/, [
             200, {'Content-Type': 'application/json'},
             JSON.stringify({
                 SiteRep: { DV: {
@@ -66,9 +66,9 @@ describe('`fetchLocationAsync` thunk tests', function() {
             })
         ]);
 
-        store.dispatch(fetchLocationAsync(payload.id));
-
-        setTimeout(function() {
+        return store.dispatch(
+            fetchLocationAsync(payload.id)
+        ).then(function() {
             var actions = store.getActions();
 
             expect(actions).to.have.lengthOf(2);
@@ -80,26 +80,22 @@ describe('`fetchLocationAsync` thunk tests', function() {
             expect(actions[1].meta).to.have.property('timestamp');
             expect(actions[1].meta.timestamp).to.be.at.least(receiveLocationAction.meta.timestamp);
             expect(actions[1]).to.have.property('error', receiveLocationAction.error);
-
-            done();
-        }, 1);
+        });
     });
 
-    it('when called with a 403 response, returns the expected store actions', function(done) {
-        server.respondWith('GET', /.+datapoint.+/, [
+    it('when called with a 403 response, returns the expected store actions', function() {
+        server.respondWith('GET', /datapoint/, [
             403, {"Content-Type": 'text/html'}, 'Nope.'
         ]);
 
-        store.dispatch(fetchLocationAsync());
-
-        setTimeout(function() {
+        return store.dispatch(
+            fetchLocationAsync(353500)
+        ).then(function() {}, function() {
             var actions = store.getActions();
 
             expect(actions).to.have.lengthOf(2);
             expect(actions[0]).to.eql(fetchLocation());
             expect(actions[1]).to.eql(receiveLocation(new Error()));
-
-            done();
-        }, 1);
+        });
     });
 });
