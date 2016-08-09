@@ -2,18 +2,30 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 var url = require('url');
 
-var ajaxRequests = [];
-global.window.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
-global.window.XMLHttpRequest.onCreate = function(xhr) {
-    ajaxRequests.push(xhr);
-};
-
 import fetch from '../../src/modules/fetch-location';
 
 describe('fetch-location module', function() {
     var locationId = 353500;
-    var result = fetch(locationId);
-    var request = url.parse(ajaxRequests[0].url, true);
+    var server, result, request;
+
+    before(function() {
+        global.window.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
+        server = sinon.fakeServer.create({
+            respondImmediately: true
+        });
+
+        server.respondWith('GET', /datapoint/, [
+            200, {'Content-Type': 'application/json'}, JSON.stringify({id: locationId})
+        ]);
+
+        result = fetch(locationId);
+        request = url.parse(server.requests[0].url, true);
+    });
+
+    after(function restoreXHR() {
+        global.window.XMLHttpRequest.restore();
+        server.restore();
+    });
 
     it('request `protocol` is HTTP', function() {
         expect(request.protocol).to.equal('http:');
@@ -32,17 +44,8 @@ describe('fetch-location module', function() {
     });
 
     it('successful request returns resolved promise with correct data', function() {
-        ajaxRequests[0].respond(
-            200, {'Content-Type': 'application/json'},
-            JSON.stringify({id: locationId})
-        );
-
         return result.then(function onResolve(data, textStatus, jqXHR) {
             expect(data).to.have.property('id', locationId);
         });
-    });
-
-    after(function restoreXMLHttpRequest() {
-        global.window.XMLHttpRequest.restore();
     });
 });
