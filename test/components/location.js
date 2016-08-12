@@ -16,9 +16,9 @@ describe('<Location/>', function() {
         applyMiddleware(thunk)
     );
 
-    var spy = sinon.spy(Location.prototype, 'componentDidMount');
-    var getLocationStub = sinon.stub(Location.prototype, 'getLocation');
-    var onRefreshSpy = sinon.spy(Location.prototype, 'onRefresh');
+    var spy = sinon.spy(Location.WrappedComponent.prototype, 'componentDidMount');
+    var getLocationStub = sinon.stub(Location.WrappedComponent.prototype, 'getLocation');
+    var onRefreshSpy = sinon.spy(Location.WrappedComponent.prototype, 'onRefresh');
 
     var wrapper = mount(
         <Provider store={store}>
