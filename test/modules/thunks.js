@@ -90,7 +90,7 @@ describe('`fetchLocationAsync` thunk tests', function() {
 
         return store.dispatch(
             fetchLocationAsync(353500)
-        ).then(function() {}, function() {
+        ).catch(function() {
             var actions = store.getActions();
 
             expect(actions).to.have.lengthOf(2);
