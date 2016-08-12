@@ -34,5 +34,3 @@ export function fetchLocationAsync(locationId) {
         return result;
     }
 }
-
-export { fetchLocationAsync };

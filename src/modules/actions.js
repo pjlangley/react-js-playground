@@ -22,5 +22,3 @@ export function receiveLocation(payload) {
         error: null
     }
 }
-
-export { fetchLocation, receiveLocation };
