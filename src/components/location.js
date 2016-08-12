@@ -1,11 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import LocationInfo from './location-info';
 import Warning from './warning';
 import { fetchLocationAsync } from '../modules/thunks';
 
+function mapStateToProps(state) {
+    return {
+        locationInfo: state.locationInfo,
+        unavailable: state.unavailable,
+        isLoading: state.isLoading,
+        lastUpdated: state.lastUpdated
+    };
+}
+
 class Location extends React.Component {
     render() {
-        var state = this.context.store.getState();
+        var props = this.props;
 
         return (
             <div className="row">
@@ -13,16 +23,16 @@ class Location extends React.Component {
                     <div className="card large">
                         <div className="card-image">
                             <img src="images/background.jpg"/>
-                            <span className="card-title">{state.locationInfo ? state.locationInfo.name : ''}</span>
+                            <span className="card-title">{props.locationInfo ? props.locationInfo.name : ''}</span>
                         </div>
                         <div className="card-content">
-                            {state.unavailable ? <Warning text="Sorry, we were unable to get the location information at this time. Please try again later."/> : ''}
+                            {props.unavailable ? <Warning text="Sorry, we were unable to get the location information at this time. Please try again later."/> : ''}
 
-                            {state.locationInfo ? <LocationInfo/> : ''}
+                            {props.locationInfo ? <LocationInfo info={props.locationInfo} lastUpdated={props.lastUpdated}/> : ''}
                         </div>
                         <div className="card-action">
                             <a href="#" onClick={this.onRefresh.bind(this)}>Refresh</a>
-                            <img className={state.isLoading ? 'loader' : 'loader hide'} src="images/spinner.gif" alt="Loading location"/>
+                            <img className={props.isLoading ? 'loader' : 'loader hide'} src="images/spinner.gif" alt="Loading location"/>
                         </div>
                     </div>
                 </div>
@@ -40,14 +50,10 @@ class Location extends React.Component {
     }
 
     getLocation() {
-        this.context.store.dispatch(
+        this.props.dispatch(
             fetchLocationAsync(this.props.locationId)
         );
     }
 }
 
-Location.contextTypes = {
-    store: React.PropTypes.object
-};
-
-export default Location;
+export default connect(mapStateToProps)(Location);

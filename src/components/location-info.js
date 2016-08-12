@@ -9,8 +9,8 @@ var LocationInfo = React.createClass({
     },
 
     render: function() {
-        var store = this.context.store.getState();
-        var info = store.locationInfo;
+        var props = this.props;
+        var info = props.info;
 
         return (
             <ul className="location-info">
@@ -22,14 +22,10 @@ var LocationInfo = React.createClass({
                 <li className="temperature"><strong>Temperature: </strong><span dangerouslySetInnerHTML={this.createDegreesMarkup(info.temperature)}/></li>
                 <li className="wind-speed"><strong>Wind Speed: </strong>{info.windSpeed}</li>
                 <li className="wind-direction"><strong>Wind Direction: </strong>{info.windDirection}</li>
-                <li className="right-align">Last updated: {new Date(store.lastUpdated).toLocaleString()}</li>
+                <li className="right-align">Last updated: {new Date(props.lastUpdated).toLocaleString()}</li>
             </ul>
         );
     }
 });
-
-LocationInfo.contextTypes = {
-    store: React.PropTypes.object
-};
 
 export default LocationInfo;
