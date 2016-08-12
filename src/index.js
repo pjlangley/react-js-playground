@@ -11,14 +11,9 @@ var store = createStore(
     applyMiddleware(thunk)
 );
 
-var render = function() {
-    ReactDOM.render(
-        <Provider store={store}>
-            <Location locationId="353500"/>
-        </Provider>,
-        document.getElementById('app')
-    );
-};
-
-store.subscribe(render);
-render();
+ReactDOM.render(
+    <Provider store={store}>
+        <Location locationId="353500"/>
+    </Provider>,
+    document.getElementById('app')
+);
