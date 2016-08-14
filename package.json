@@ -22,7 +22,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --content-base public",
+    "start": "webpack-dev-server --content-base public --history-api-fallback",
     "test": "mocha --require jsdom-setup.js --compilers js:babel-core/register --recursive"
   },
   "dependencies": {
@@ -31,6 +31,7 @@
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0"
   }

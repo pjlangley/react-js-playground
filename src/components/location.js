@@ -51,7 +51,7 @@ class Location extends React.Component {
 
     getLocation() {
         this.props.dispatch(
-            fetchLocationAsync(this.props.locationId)
+            fetchLocationAsync(this.props.params.locationId || 353500)
         );
     }
 }
