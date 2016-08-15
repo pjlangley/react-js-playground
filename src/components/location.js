@@ -14,6 +14,11 @@ function mapStateToProps(state) {
 }
 
 class Location extends React.Component {
+    constructor() {
+        super();
+        this.onRefresh = this.onRefresh.bind(this);
+    }
+
     render() {
         var props = this.props;
 
@@ -31,7 +36,7 @@ class Location extends React.Component {
                             {props.locationInfo ? <LocationInfo info={props.locationInfo} lastUpdated={props.lastUpdated}/> : ''}
                         </div>
                         <div className="card-action">
-                            <a href="#" onClick={this.onRefresh.bind(this)}>Refresh</a>
+                            <a href="#" onClick={this.onRefresh}>Refresh</a>
                             <img className={props.isLoading ? 'loader' : 'loader hide'} src="images/spinner.gif" alt="Loading location"/>
                         </div>
                     </div>
