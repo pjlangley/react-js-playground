@@ -11,12 +11,12 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|public)/,
+                include: __dirname + '/src',
                 loader: 'babel-loader'
             },
             {
                 test: /modules\/fetch-location\.js$/,
-                exclude: /(node_modules|public)/,
+                include: __dirname + '/src',
                 loader: __dirname + '/include-api-key'
             }
         ]
