@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LocationInfo from './location-info';
 import Warning from './warning';
 import { fetchLocationAsync } from '../modules/thunks';
+import styles from '../css/components/location/location.css';
 
 function mapStateToProps(state) {
     return {
@@ -37,7 +38,7 @@ class Location extends React.Component {
                         </div>
                         <div className="card-action">
                             <a href="#" onClick={this.onRefresh}>Refresh</a>
-                            <img className={props.isLoading ? 'loader' : 'loader hide'} src="images/spinner.gif" alt="Loading location"/>
+                            <img className={props.isLoading ? styles.loader : styles.loader + ' hide'} src="images/spinner.gif" alt="Loading location"/>
                         </div>
                     </div>
                 </div>

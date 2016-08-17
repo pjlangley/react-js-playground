@@ -1,5 +1,6 @@
 import React from 'react';
 import { isDegreesC } from '../modules/validate';
+import styles from '../css/components/location/location-info.css';
 
 var LocationInfo = React.createClass({
     createDegreesMarkup: function(string) {
@@ -13,7 +14,7 @@ var LocationInfo = React.createClass({
         var info = props.info;
 
         return (
-            <ul className="location-info">
+            <ul className={styles.locationInfo}>
                 <li className="id"><strong>Location ID: </strong>{info.id}</li>
                 <li className="lon"><strong>Lon: </strong>{info.lon}</li>
                 <li className="lat"><strong>Lat: </strong>{info.lat}</li>
