@@ -14,7 +14,7 @@ var LocationInfo = React.createClass({
         var info = props.info;
 
         return (
-            <ul className={styles.locationInfo}>
+            <ul className={styles["location-info"]}>
                 <li className="id"><strong>Location ID: </strong>{info.id}</li>
                 <li className="lon"><strong>Lon: </strong>{info.lon}</li>
                 <li className="lat"><strong>Lat: </strong>{info.lat}</li>

@@ -5,7 +5,7 @@ register(undefined, function(module, filename) {
         module.exports = {loader: 'loader'};
     }
     else if (filename.match(/location-info\.css$/)) {
-        module.exports = {locationInfo: 'location-info'};
+        module.exports = {'location-info': 'location-info'};
     }
 
     return null;
