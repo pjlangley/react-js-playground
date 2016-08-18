@@ -60,7 +60,7 @@ describe('<Location/>', function() {
         });
 
         it('should not contain location information yet', function() {
-            expect(wrapper.find('ul.location-info')).to.have.lengthOf(0);
+            expect(wrapper.find('ul.locationInfo')).to.have.lengthOf(0);
         });
 
         it('should not contain a location title', function() {
@@ -110,7 +110,7 @@ describe('<Location/>', function() {
         });
 
         it('contains location information component', function() {
-            expect(wrapper.find('ul.location-info')).to.have.lengthOf(1);
+            expect(wrapper.find('ul.locationInfo')).to.have.lengthOf(1);
         });
 
         it('loading section is hidden', function() {
@@ -123,35 +123,35 @@ describe('<Location/>', function() {
 
         describe('location info contains...', function() {
             it('location id', function() {
-                expect(wrapper.find('ul.location-info li.id').text()).to.contain('353500');
+                expect(wrapper.find('ul.locationInfo li.id').text()).to.contain('353500');
             });
 
             it('location lat', function() {
-                expect(wrapper.find('ul.location-info li.lat').text()).to.contain('-1.4235');
+                expect(wrapper.find('ul.locationInfo li.lat').text()).to.contain('-1.4235');
             });
 
             it('location lon', function() {
-                expect(wrapper.find('ul.location-info li.lon').text()).to.contain('50.9231');
+                expect(wrapper.find('ul.locationInfo li.lon').text()).to.contain('50.9231');
             });
 
             it('location country', function() {
-                expect(wrapper.find('ul.location-info li.country').text()).to.contain('ENGLAND');
+                expect(wrapper.find('ul.locationInfo li.country').text()).to.contain('ENGLAND');
             });
 
             it('location continent', function() {
-                expect(wrapper.find('ul.location-info li.continent').text()).to.contain('EUROPE');
+                expect(wrapper.find('ul.locationInfo li.continent').text()).to.contain('EUROPE');
             });
 
             it('location temperature', function() {
-                expect(wrapper.find('ul.location-info li.temperature').text()).to.contain('15');
+                expect(wrapper.find('ul.locationInfo li.temperature').text()).to.contain('15');
             });
 
             it('location wind speed', function() {
-                expect(wrapper.find('ul.location-info li.wind-speed').text()).to.contain('11mph');
+                expect(wrapper.find('ul.locationInfo li.wind-speed').text()).to.contain('11mph');
             });
 
             it('location wind direction', function() {
-                expect(wrapper.find('ul.location-info li.wind-direction').text()).to.contain('WSW');
+                expect(wrapper.find('ul.locationInfo li.wind-direction').text()).to.contain('WSW');
             });
         });
     });

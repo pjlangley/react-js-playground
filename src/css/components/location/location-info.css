@@ -1,8 +1,8 @@
-.location-info {
+.locationInfo {
     margin-top: 0;
 }
 
-.location-info li:last-child {
+.locationInfo li:last-child {
     font-size: 0.8em;
     margin-top: -5px;
 }
