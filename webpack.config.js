@@ -1,8 +1,8 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractCSSQuery = [
     'modules',
-    'localIdentName=[name]__[local]___[hash:base64:5]',
-    'sourceMap'
+    'sourceMap',
+    'localIdentName=[name]__[local]___[hash:base64:5]'
 ];
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 include: __dirname + '/src/css',
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?' + extractCSSQuery.join('&'))
+                loader: ExtractTextPlugin.extract('css-loader?' + extractCSSQuery.join('&'))
             }
         ]
     },
