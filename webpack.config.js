@@ -1,7 +1,6 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractCSSQuery = [
     'modules',
-    'importLoaders=1',
     'localIdentName=[name]__[local]___[hash:base64:5]',
     'sourceMap'
 ];
